@@ -7,7 +7,7 @@ banner:
     laborum officiis necessitatibus
   button:
     enable: true
-    label: Contact With Us
+    label: How Can I Help?
     link: contact
 feature:
   enable: true
