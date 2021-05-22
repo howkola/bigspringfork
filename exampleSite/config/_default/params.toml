@@ -1,41 +1,28 @@
-#################### default parameters ################################
+author = ""
+contact_form_action = "#"
+description = "This is meta description"
 logo = "images/logo.png"
 logo_width = "200px"
-# Meta data
-description = "This is meta description"
-author = "Themefisher"
-# contact form action
-contact_form_action = "#" # contact form works with https://formspree.io
-
-# Preloader
-[preloader]
-enable = false
-preloader = "" # use jpg, png, svg or gif format.
-
-# Navigation buttons
 [navigation_button]
 enable = true
 label = "Get Started"
 link = "contact"
-
-  
-############################# social site ########################
+[preloader]
+enable = false
+preloader = ""
 [[social]]
+icon = "fab fa-facebook"
+link = "#"
 title = "facebook"
-icon = "fab fa-facebook" # themify icon : https://themify.me/themify-icons
-link = "#"
-
 [[social]]
+icon = "fab fa-twitter"
+link = "#"
 title = "twitter"
-icon = "fab fa-twitter" # themify icon : https://themify.me/themify-icons
-link = "#"
-
 [[social]]
+icon = "fab fa-skype"
+link = "#"
 title = "skype"
-icon = "fab fa-skype" # themify icon : https://themify.me/themify-icons
-link = "#"
-
 [[social]]
-title = "linkedin"
-icon = "fab fa-linkedin" # themify icon : https://themify.me/themify-icons
+icon = "fab fa-linkedin"
 link = "#"
+title = "linkedin"
