@@ -1,6 +1,6 @@
 ---
 banner:
-  title: Let us solve your critical website <br> development challenges
+  title: Turn Your Ideas <br> Into Words.
   image: images/banner-art.svg
   content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nihil enim
     maxime corporis cumque <br> totam aliquid nam sint inventore optio modi neque
