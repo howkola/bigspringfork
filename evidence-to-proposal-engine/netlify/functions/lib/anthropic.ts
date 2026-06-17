@@ -15,10 +15,11 @@ export const MODELS = {
   retrieval: () => process.env.RETRIEVAL_MODEL || "claude-opus-4-8",
 };
 
-// Effort for the section synthesis. Defaults to "low" in Phase 1 so each section
-// completes inside the Netlify synchronous-function window; Phase 2 streams the
-// response to the client, which removes the timeout ceiling and lets this rise.
-export const SYNTHESIS_EFFORT = () => process.env.SYNTHESIS_EFFORT || "low";
+// Effort for the section synthesis. Phase 2 streams the section response, which
+// keeps the connection warm and improves time-to-first-token, so this defaults
+// to "medium" for better synthesis quality. Raise toward "high" as your hosting
+// plan's function duration allows; lower to "low" for the fastest drafts.
+export const SYNTHESIS_EFFORT = () => process.env.SYNTHESIS_EFFORT || "medium";
 
 export const CONSENSUS_MCP_URL = () =>
   process.env.CONSENSUS_MCP_URL || "https://mcp.consensus.app/mcp";

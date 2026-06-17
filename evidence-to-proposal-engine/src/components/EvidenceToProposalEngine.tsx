@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import type { Citation, SectionDef } from "../../shared/types";
 import { ANCHOR_LIBRARY, SECTION_DEFS, DEFAULT_REQUEST } from "../../shared/anchors";
+import { stripFences } from "../../shared/parse";
 import { runConsensus, generateSection } from "../lib/api";
 import { renderMarkdown } from "../lib/markdown";
 import { buildFullMarkdown } from "../lib/exportPacket";
@@ -57,12 +58,15 @@ export default function EvidenceToProposalEngine() {
     }
   }, []);
 
-  /* ----- Stage 1: Consensus retrieval (server-side) ----- */
+  const TRUNCATION_WARNING =
+    "\n\n> ⚠ Output reached the token limit and may be incomplete — use Regenerate on this section.";
+
+  /* ----- Stage 1: Consensus retrieval (streamed status) ----- */
   async function doConsensus(): Promise<Citation[]> {
     setStage("consensus");
     setStageNote("Searching peer-reviewed literature via Consensus…");
     try {
-      const res = await runConsensus(request);
+      const res = await runConsensus(request, { onStatus: setStageNote });
       setConsensusRaw(res.raw || "");
       setConsensusFailed(res.failed);
       setConsensusCitations(res.citations);
@@ -75,39 +79,52 @@ export default function EvidenceToProposalEngine() {
     }
   }
 
-  /* ----- Stage 2: Synthesis — one server call per section ----- */
+  /* ----- Stage 2: Synthesis — one streamed server call per section ----- */
   async function doSynthesis(cites: Citation[]) {
     setStage("synthesis");
     const defs = SECTION_DEFS.filter((s) => s.key !== "citationPacket");
-    const out: Record<string, string> = {};
     const failures: string[] = [];
     setSections({});
     for (let i = 0; i < defs.length; i++) {
       const def = defs[i];
-      setStageNote(`Drafting ${def.num} · ${def.label} (${i + 1} of ${defs.length})…`);
+      setActive(def.key); // watch each section draft live
+      const base = `Drafting ${def.num} · ${def.label} (${i + 1} of ${defs.length})`;
+      setStageNote(`${base}…`);
       try {
-        const res = await generateSection(request, def.key, cites);
-        out[def.key] = res.text;
+        const res = await generateSection(request, def.key, cites, {
+          onStatus: (phase) =>
+            setStageNote(`${base} — ${phase === "thinking" ? "Reasoning…" : "Writing…"}`),
+          onDelta: (acc) =>
+            setSections((s) => ({ ...(s || {}), [def.key]: stripFences(acc) })),
+        });
+        const text = stripFences(res.text) + (res.truncated ? TRUNCATION_WARNING : "");
+        setSections((s) => ({ ...(s || {}), [def.key]: text }));
       } catch (e) {
         console.error(`Section ${def.key} failed:`, e);
         failures.push(def.label);
-        out[def.key] = `> ⚠ This section failed to generate (${String(
-          (e as Error).message || e
-        ).slice(0, 120)}). Use Regenerate above to retry just this section.`;
+        setSections((s) => ({
+          ...(s || {}),
+          [def.key]: `> ⚠ This section failed to generate (${String(
+            (e as Error).message || e
+          ).slice(0, 120)}). Use Regenerate above to retry just this section.`,
+        }));
       }
-      setSections({ ...out }); // stream into UI as each section lands
     }
     if (failures.length === defs.length) throw new Error("All sections failed to generate");
     setSectionFailures(failures);
   }
 
-  /* Regenerate a single section without re-running the pipeline */
+  /* Regenerate a single section without re-running the pipeline (streamed live) */
   async function regenSection(def: SectionDef) {
     if (regenKey) return;
     setRegenKey(def.key);
     try {
-      const res = await generateSection(request, def.key, consensusCitations);
-      setSections((s) => ({ ...(s || {}), [def.key]: res.text }));
+      const res = await generateSection(request, def.key, consensusCitations, {
+        onDelta: (acc) =>
+          setSections((s) => ({ ...(s || {}), [def.key]: stripFences(acc) })),
+      });
+      const text = stripFences(res.text) + (res.truncated ? TRUNCATION_WARNING : "");
+      setSections((s) => ({ ...(s || {}), [def.key]: text }));
       setReviewed((r) => ({ ...r, [def.key]: false }));
     } catch (e) {
       setSections((s) => ({
@@ -350,12 +367,14 @@ export default function EvidenceToProposalEngine() {
                     regenerating={regenKey === s.key}
                   />
                   <div className="prose">
-                    {regenKey === s.key ? (
-                      <p className="md-p muted">Regenerating this section…</p>
-                    ) : sections[s.key] ? (
+                    {sections[s.key] ? (
                       renderMarkdown(sections[s.key], citationMap, onCiteClick)
                     ) : (
-                      <p className="md-p muted">Drafting… this section is in the queue.</p>
+                      <p className="md-p muted">
+                        {regenKey === s.key
+                          ? "Regenerating…"
+                          : "Drafting… this section is in the queue."}
+                      </p>
                     )}
                   </div>
                 </article>

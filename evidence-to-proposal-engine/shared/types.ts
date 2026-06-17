@@ -46,3 +46,16 @@ export interface SectionResponse {
 export interface ApiError {
   error: string;
 }
+
+// ---- Server-Sent Event payloads (streaming, Phase 2) ----
+
+export type SectionStreamEvent =
+  | { type: "status"; phase: "thinking" | "writing" }
+  | { type: "delta"; text: string }
+  | { type: "done"; truncated: boolean }
+  | { type: "error"; message: string };
+
+export type ConsensusStreamEvent =
+  | { type: "status"; message: string }
+  | { type: "result"; citations: Citation[]; raw: string; failed: boolean }
+  | { type: "error"; message: string };

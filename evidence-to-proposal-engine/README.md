@@ -67,20 +67,26 @@ work.
 | `SYNTHESIS_MODEL` | `claude-opus-4-8` | Section drafting. |
 | `STRUCTURING_MODEL` | `claude-haiku-4-5` | Consensus → `[C#]` extraction. |
 | `RETRIEVAL_MODEL` | `claude-opus-4-8` | Drives Consensus MCP searches. |
-| `SYNTHESIS_EFFORT` | `low` | Effort for section drafts (see note below). |
+| `SYNTHESIS_EFFORT` | `medium` | Effort for section drafts (see streaming note). |
 | `CONSENSUS_MCP_URL` | `https://mcp.consensus.app/mcp` | Consensus MCP endpoint. |
 
-### Phase 1 note on timeouts
+### Streaming (Phase 2)
 
-Sections are generated with a non-streaming function response, so each call must
-finish inside Netlify's synchronous-function window. `SYNTHESIS_EFFORT` defaults
-to `low` to keep section drafts fast and reliable. **Phase 2** streams the
-section response (SSE) to the browser, which removes the timeout ceiling and
-lets the effort rise for higher-quality synthesis.
+Both endpoints respond with **Server-Sent Events**:
+
+- `/api/section` streams markdown token-by-token (`delta` frames) plus `status`
+  frames (`thinking` / `writing`) and a terminal `done` frame carrying the
+  truncation flag. The browser renders each section live.
+- `/api/consensus` streams `status` frames while the (potentially slow) MCP
+  search loop runs, then a single `result` frame with the citations.
+
+Streaming improves time-to-first-token and keeps the connection warm during long
+retrievals/generations, so `SYNTHESIS_EFFORT` now defaults to `medium`. Raise it
+toward `high` as your Netlify plan's function duration allows.
 
 ## Roadmap
 
-- **Phase 1 (this):** runs live, key safe, end-to-end with current models.
-- **Phase 2:** stream sections token-by-token; harden real Consensus retrieval.
+- **Phase 1 (done):** runs live, key safe, end-to-end with current models.
+- **Phase 2 (done):** stream sections token-by-token; streamed Consensus status.
 - **Phase 3:** save & revisit packets (Supabase, shareable slug, no accounts).
 - **Phase 4:** inline section editing + real DOCX/PDF export.
