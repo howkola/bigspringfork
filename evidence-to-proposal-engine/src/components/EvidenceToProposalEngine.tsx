@@ -7,6 +7,8 @@ import { savePacket, loadPacket, listPackets, PersistenceUnavailable } from "../
 import { getSlugFromUrl, setSlugUrl, shareUrl } from "../lib/url";
 import { renderMarkdown } from "../lib/markdown";
 import { buildFullMarkdown } from "../lib/exportPacket";
+import { downloadDocx } from "../lib/exportDocx";
+import { printPacket } from "../lib/exportPdf";
 import { SectionHead } from "./SectionHead";
 import { CSS } from "../styles";
 
@@ -57,6 +59,11 @@ export default function EvidenceToProposalEngine() {
   const [linkCopied, setLinkCopied] = useState(false);
   const slugRef = useRef("");
   const lastSavedRef = useRef("");
+
+  // Inline editing (Phase 4)
+  const [editKey, setEditKey] = useState("");
+  const [editDraft, setEditDraft] = useState("");
+  const [exportNote, setExportNote] = useState("");
 
   const allCitations = useMemo<Citation[]>(
     () => [...ANCHOR_LIBRARY, ...consensusCitations],
@@ -279,15 +286,35 @@ export default function EvidenceToProposalEngine() {
     const md = buildFullMarkdown(request, sections || {}, usedCitations, verified);
     copy("packet", md);
   }
-  function downloadPacket() {
-    const md = buildFullMarkdown(request, sections || {}, usedCitations, verified);
-    const blob = new Blob([md], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "evidence-to-proposal-packet.md";
-    a.click();
-    URL.revokeObjectURL(url);
+  async function docxPacket() {
+    setExportNote("");
+    try {
+      await downloadDocx(request, sections || {}, usedCitations, verified);
+    } catch (e) {
+      console.error("DOCX export failed:", e);
+      setExportNote("DOCX export failed — try again.");
+    }
+  }
+  function pdfPacket() {
+    setExportNote("");
+    const ok = printPacket(request, sections || {}, usedCitations, verified);
+    if (!ok) setExportNote("Allow pop-ups to export PDF (opens the print dialog).");
+  }
+
+  /* ----- Inline section editing (Phase 4) ----- */
+  function startEdit(key: string) {
+    setEditKey(key);
+    setEditDraft((sections && sections[key]) || "");
+  }
+  function cancelEdit() {
+    setEditKey("");
+  }
+  function saveEdit() {
+    if (!editKey) return;
+    const k = editKey;
+    setSections((s) => ({ ...(s || {}), [k]: editDraft }));
+    setReviewed((r) => ({ ...r, [k]: false })); // edited → needs re-review
+    setEditKey("");
   }
 
   const onCiteClick = () => setActive("citationPacket");
@@ -354,10 +381,13 @@ export default function EvidenceToProposalEngine() {
           {sections && (
             <>
               <button className="btn" onClick={exportPacket}>
-                {copied === "packet" ? "Copied ✓" : "Copy full packet (.md)"}
+                {copied === "packet" ? "Copied ✓" : "Copy .md"}
               </button>
-              <button className="btn" onClick={downloadPacket}>
-                Download .md
+              <button className="btn" onClick={docxPacket}>
+                Word .docx
+              </button>
+              <button className="btn" onClick={pdfPacket}>
+                PDF
               </button>
               {saveState !== "unavailable" && (
                 <button className="btn" onClick={saveNow} disabled={saveState === "saving"}>
@@ -370,6 +400,7 @@ export default function EvidenceToProposalEngine() {
                 </button>
               )}
               {saveStatus && <span className="save-status">{saveStatus}</span>}
+              {exportNote && <span className="save-status">{exportNote}</span>}
             </>
           )}
         </div>
@@ -501,9 +532,31 @@ export default function EvidenceToProposalEngine() {
                     copied={copied === s.key}
                     onRegen={() => regenSection(s)}
                     regenerating={regenKey === s.key}
+                    onEdit={sections[s.key] ? () => startEdit(s.key) : undefined}
+                    editing={editKey === s.key}
                   />
                   <div className="prose">
-                    {sections[s.key] ? (
+                    {editKey === s.key ? (
+                      <div className="editor">
+                        <textarea
+                          className="edit-area"
+                          rows={18}
+                          value={editDraft}
+                          onChange={(e) => setEditDraft(e.target.value)}
+                        />
+                        <div className="editor-actions">
+                          <button className="btn small" onClick={saveEdit}>
+                            Save edits
+                          </button>
+                          <button className="btn small" onClick={cancelEdit}>
+                            Cancel
+                          </button>
+                          <span className="save-status">
+                            {"Markdown · [A#]/[C#] citations and {{LOCAL: …}} placeholders supported"}
+                          </span>
+                        </div>
+                      </div>
+                    ) : sections[s.key] ? (
                       renderMarkdown(sections[s.key], citationMap, onCiteClick)
                     ) : (
                       <p className="md-p muted">

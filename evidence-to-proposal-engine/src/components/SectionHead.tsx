@@ -8,6 +8,8 @@ interface SectionHeadProps {
   copied: boolean;
   onRegen?: () => void;
   regenerating?: boolean;
+  onEdit?: () => void;
+  editing?: boolean;
 }
 
 export function SectionHead({
@@ -18,6 +20,8 @@ export function SectionHead({
   copied,
   onRegen,
   regenerating,
+  onEdit,
+  editing,
 }: SectionHeadProps) {
   return (
     <div className="sec-head">
@@ -26,8 +30,13 @@ export function SectionHead({
         <h2>{def.label}</h2>
       </div>
       <div className="sec-actions">
+        {onEdit && (
+          <button className="btn small" onClick={onEdit} disabled={editing}>
+            {editing ? "Editing…" : "Edit"}
+          </button>
+        )}
         {onRegen && (
-          <button className="btn small" onClick={onRegen} disabled={regenerating}>
+          <button className="btn small" onClick={onRegen} disabled={regenerating || editing}>
             {regenerating ? "Working…" : "Regenerate"}
           </button>
         )}

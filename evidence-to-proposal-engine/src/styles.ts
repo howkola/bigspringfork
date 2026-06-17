@@ -103,6 +103,11 @@ button{font-family:var(--sans);cursor:pointer}
 
 .save-status{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);align-self:center}
 
+.editor{display:flex;flex-direction:column;gap:10px}
+.edit-area{width:100%;font-family:var(--mono);font-size:13px;line-height:1.6;color:var(--ink);background:var(--cream);border:1px solid var(--rule);padding:12px;resize:vertical;outline:none}
+.edit-area:focus{border-color:var(--garnet)}
+.editor-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
 .empty{max-width:680px;margin:60px auto;text-align:center;color:var(--ink-soft);font-size:15px;line-height:1.7}
 .empty-num{font-family:var(--disp);font-size:64px;color:var(--rule);line-height:1;margin-bottom:12px}
 .recent{margin-top:28px;text-align:left;border-top:1px solid var(--rule)}

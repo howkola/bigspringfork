@@ -104,9 +104,22 @@ policies (only the service role can read/write — defense in depth).
 Apply the schema once (`supabase/migrations/0001_packets.sql`) via the Supabase
 SQL editor, the Supabase CLI, or `supabase db push`.
 
+### Editing & export (Phase 4)
+
+- **Inline editing:** each drafted section has an **Edit** button that opens a
+  markdown textarea; saving updates the section, clears its reviewed flag (edited
+  → needs re-review), and autosaves. `[A#]`/`[C#]` citations and `{{LOCAL: …}}`
+  placeholders keep working in edited text.
+- **DOCX:** a real `.docx` built from the same markdown tokens the UI renders
+  (headings, lists, bold, colored citation markers, verification status). The
+  `docx` library is lazy-loaded, so it's not in the main bundle.
+- **PDF:** the packet renders to a styled, paginated print view and opens the
+  browser's print / Save-as-PDF dialog — a real, text-selectable PDF with the
+  app's editorial typography, and no heavy PDF dependency. (Allow pop-ups.)
+
 ## Roadmap
 
 - **Phase 1 (done):** runs live, key safe, end-to-end with current models.
 - **Phase 2 (done):** stream sections token-by-token; streamed Consensus status.
 - **Phase 3 (done):** save & revisit packets (Supabase, shareable slug, no accounts).
-- **Phase 4:** inline section editing + real DOCX/PDF export.
+- **Phase 4 (done):** inline section editing + real DOCX/PDF export.
