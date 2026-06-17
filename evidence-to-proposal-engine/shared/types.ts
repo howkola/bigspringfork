@@ -59,3 +59,34 @@ export type ConsensusStreamEvent =
   | { type: "status"; message: string }
   | { type: "result"; citations: Citation[]; raw: string; failed: boolean }
   | { type: "error"; message: string };
+
+// ---- Persistence (Phase 3) ----
+
+/** The full, rehydratable state of a saved packet. Anchors are static
+    (rebuilt from ANCHOR_LIBRARY), so only the Consensus citations are stored. */
+export interface PacketData {
+  request: string;
+  sections: Record<string, string>;
+  consensusCitations: Citation[];
+  consensusRaw: string;
+  consensusFailed: boolean;
+  verified: Record<string, boolean>;
+  reviewed: Record<string, boolean>;
+}
+
+export interface PacketMeta {
+  slug: string;
+  request: string;
+  updatedAt: string;
+}
+
+export interface SavePacketResponse {
+  slug: string;
+  updatedAt: string;
+}
+
+export interface LoadPacketResponse {
+  slug: string;
+  data: PacketData;
+  updatedAt: string;
+}

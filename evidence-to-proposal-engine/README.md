@@ -69,6 +69,8 @@ work.
 | `RETRIEVAL_MODEL` | `claude-opus-4-8` | Drives Consensus MCP searches. |
 | `SYNTHESIS_EFFORT` | `medium` | Effort for section drafts (see streaming note). |
 | `CONSENSUS_MCP_URL` | `https://mcp.consensus.app/mcp` | Consensus MCP endpoint. |
+| `SUPABASE_URL` | — | Supabase project URL (Phase 3 persistence). |
+| `SUPABASE_SERVICE_ROLE_KEY` | — | Service-role key, server-side only. |
 
 ### Streaming (Phase 2)
 
@@ -84,9 +86,27 @@ Streaming improves time-to-first-token and keeps the connection warm during long
 retrievals/generations, so `SYNTHESIS_EFFORT` now defaults to `medium`. Raise it
 toward `high` as your Netlify plan's function duration allows.
 
+### Persistence (Phase 3)
+
+Packets are saved to Supabase and addressed by an unguessable **slug** at
+`/p/<slug>` — **no accounts**. Anyone with the link can view/edit. All DB access
+runs through the `/api/packets` function with the **service-role** key, so the
+browser never touches the database. The `packets` table has RLS enabled with no
+policies (only the service role can read/write — defense in depth).
+
+- **Save & get link** mints a slug and rewrites the URL.
+- After a slug exists, review/verify toggles and section edits **autosave**
+  (debounced).
+- The idle screen lists recent packets.
+- If `SUPABASE_*` is unset, persistence is disabled and the rest of the app
+  works unchanged.
+
+Apply the schema once (`supabase/migrations/0001_packets.sql`) via the Supabase
+SQL editor, the Supabase CLI, or `supabase db push`.
+
 ## Roadmap
 
 - **Phase 1 (done):** runs live, key safe, end-to-end with current models.
 - **Phase 2 (done):** stream sections token-by-token; streamed Consensus status.
-- **Phase 3:** save & revisit packets (Supabase, shareable slug, no accounts).
+- **Phase 3 (done):** save & revisit packets (Supabase, shareable slug, no accounts).
 - **Phase 4:** inline section editing + real DOCX/PDF export.

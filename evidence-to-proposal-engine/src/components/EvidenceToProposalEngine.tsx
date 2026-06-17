@@ -1,12 +1,28 @@
-import { useState, useMemo, useCallback } from "react";
-import type { Citation, SectionDef } from "../../shared/types";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import type { Citation, PacketData, PacketMeta, SectionDef } from "../../shared/types";
 import { ANCHOR_LIBRARY, SECTION_DEFS, DEFAULT_REQUEST } from "../../shared/anchors";
 import { stripFences } from "../../shared/parse";
 import { runConsensus, generateSection } from "../lib/api";
+import { savePacket, loadPacket, listPackets, PersistenceUnavailable } from "../lib/packets";
+import { getSlugFromUrl, setSlugUrl, shareUrl } from "../lib/url";
 import { renderMarkdown } from "../lib/markdown";
 import { buildFullMarkdown } from "../lib/exportPacket";
 import { SectionHead } from "./SectionHead";
 import { CSS } from "../styles";
+
+type SaveState = "idle" | "saving" | "saved" | "error" | "unavailable";
+
+function makePacketData(p: Partial<PacketData>): PacketData {
+  return {
+    request: p.request ?? "",
+    sections: p.sections ?? {},
+    consensusCitations: p.consensusCitations ?? [],
+    consensusRaw: p.consensusRaw ?? "",
+    consensusFailed: !!p.consensusFailed,
+    verified: p.verified ?? {},
+    reviewed: p.reviewed ?? {},
+  };
+}
 
 /* ============================================================
    EVIDENCE-TO-PROPOSAL RESEARCH ENGINE — Project Harmony CAC
@@ -31,6 +47,16 @@ export default function EvidenceToProposalEngine() {
   const [copied, setCopied] = useState("");
   const [regenKey, setRegenKey] = useState("");
   const [sectionFailures, setSectionFailures] = useState<string[]>([]);
+
+  // Persistence (Phase 3)
+  const [slug, setSlug] = useState("");
+  const [saveState, setSaveState] = useState<SaveState>("idle");
+  const [recent, setRecent] = useState<PacketMeta[]>([]);
+  const [loadingPacket, setLoadingPacket] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [linkCopied, setLinkCopied] = useState(false);
+  const slugRef = useRef("");
+  const lastSavedRef = useRef("");
 
   const allCitations = useMemo<Citation[]>(
     () => [...ANCHOR_LIBRARY, ...consensusCitations],
@@ -57,6 +83,95 @@ export default function EvidenceToProposalEngine() {
       /* clipboard unavailable */
     }
   }, []);
+
+  /* ----- Persistence (Phase 3): save & revisit by shareable slug ----- */
+
+  // Build the canonical, rehydratable packet snapshot from current state.
+  const buildData = useCallback(
+    (): PacketData =>
+      makePacketData({
+        request,
+        sections: sections || {},
+        consensusCitations,
+        consensusRaw,
+        consensusFailed,
+        verified,
+        reviewed,
+      }),
+    [request, sections, consensusCitations, consensusRaw, consensusFailed, verified, reviewed]
+  );
+
+  // Stable persist: refs avoid dependency churn in the autosave effect.
+  const persist = useCallback(async (data: PacketData) => {
+    setSaveState("saving");
+    try {
+      const res = await savePacket(data, slugRef.current || undefined);
+      lastSavedRef.current = JSON.stringify(data);
+      if (!slugRef.current) {
+        slugRef.current = res.slug;
+        setSlug(res.slug);
+        setSlugUrl(res.slug);
+      }
+      setSaveState("saved");
+    } catch (e) {
+      if (e instanceof PersistenceUnavailable) setSaveState("unavailable");
+      else setSaveState("error");
+    }
+  }, []);
+
+  const saveNow = useCallback(() => {
+    if (!sections) return;
+    void persist(buildData());
+  }, [sections, buildData, persist]);
+
+  // Load recent list + hydrate from a /p/<slug> URL on first mount.
+  useEffect(() => {
+    void listPackets().then(setRecent).catch(() => {});
+    const s = getSlugFromUrl();
+    if (!s) return;
+    setLoadingPacket(true);
+    loadPacket(s)
+      .then((res) => {
+        const d = makePacketData(res.data);
+        setRequest(d.request || DEFAULT_REQUEST);
+        setSections(d.sections);
+        setConsensusCitations(d.consensusCitations);
+        setConsensusRaw(d.consensusRaw);
+        setConsensusFailed(d.consensusFailed);
+        setVerified(d.verified);
+        setReviewed(d.reviewed);
+        setActive("needStatement");
+        setStage("done");
+        slugRef.current = res.slug;
+        setSlug(res.slug);
+        lastSavedRef.current = JSON.stringify(d); // avoid an immediate re-save
+        setSaveState("saved");
+      })
+      .catch((e: unknown) => setLoadError(String((e as Error).message || e)))
+      .finally(() => setLoadingPacket(false));
+  }, []);
+
+  // Autosave: once a packet has a slug, debounce-persist when its content changes.
+  useEffect(() => {
+    if (!slug || saveState === "unavailable") return;
+    if (stage === "consensus" || stage === "synthesis" || regenKey) return;
+    const data = buildData();
+    const snapshot = JSON.stringify(data);
+    if (snapshot === lastSavedRef.current) return;
+    const t = setTimeout(() => void persist(data), 1200);
+    return () => clearTimeout(t);
+  }, [slug, saveState, stage, regenKey, buildData, persist]);
+
+  const copyLink = useCallback(() => {
+    if (!slug) return;
+    void navigator.clipboard.writeText(shareUrl(slug)).then(
+      () => {
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 1600);
+      },
+      () => {}
+    );
+  }, [slug]);
 
   const TRUNCATION_WARNING =
     "\n\n> ⚠ Output reached the token limit and may be incomplete — use Regenerate on this section.";
@@ -177,6 +292,16 @@ export default function EvidenceToProposalEngine() {
 
   const onCiteClick = () => setActive("citationPacket");
   const working = stage === "consensus" || stage === "synthesis";
+  const saveStatus =
+    saveState === "saving"
+      ? "Saving…"
+      : saveState === "saved"
+      ? slug
+        ? "Saved · autosaves on change"
+        : "Saved"
+      : saveState === "error"
+      ? "Save failed — retry"
+      : "";
 
   return (
     <div className="app">
@@ -221,7 +346,7 @@ export default function EvidenceToProposalEngine() {
         <div className="brief-actions">
           <button
             className="btn primary"
-            disabled={working || !request.trim()}
+            disabled={working || loadingPacket || !request.trim()}
             onClick={runPipeline}
           >
             {working ? "Working…" : sections ? "Rebuild evidence packet" : "Build evidence packet"}
@@ -234,6 +359,17 @@ export default function EvidenceToProposalEngine() {
               <button className="btn" onClick={downloadPacket}>
                 Download .md
               </button>
+              {saveState !== "unavailable" && (
+                <button className="btn" onClick={saveNow} disabled={saveState === "saving"}>
+                  {saveState === "saving" ? "Saving…" : slug ? "Save now" : "Save & get link"}
+                </button>
+              )}
+              {slug && (
+                <button className="btn" onClick={copyLink}>
+                  {linkCopied ? "Link copied ✓" : "Copy link"}
+                </button>
+              )}
+              {saveStatus && <span className="save-status">{saveStatus}</span>}
             </>
           )}
         </div>
@@ -386,13 +522,40 @@ export default function EvidenceToProposalEngine() {
 
       {!sections && stage === "idle" && (
         <section className="empty">
-          <div className="empty-num">§</div>
-          <p>
-            Enter the funding request above and build the packet. The engine retrieves peer-reviewed
-            evidence through Consensus, anchors it to the OJJDP Model Programs Guide CAC literature
-            review, and drafts all ten sections with closed-corpus citations — nothing is cited that
-            wasn't retrieved or seeded.
-          </p>
+          {loadingPacket ? (
+            <>
+              <div className="empty-num">⋯</div>
+              <p>Loading saved packet…</p>
+            </>
+          ) : (
+            <>
+              <div className="empty-num">§</div>
+              <p>
+                Enter the funding request above and build the packet. The engine retrieves
+                peer-reviewed evidence through Consensus, anchors it to the OJJDP Model Programs
+                Guide CAC literature review, and drafts all ten sections with closed-corpus
+                citations — nothing is cited that wasn't retrieved or seeded.
+              </p>
+              {loadError && (
+                <div className="notice error" style={{ textAlign: "left" }}>
+                  Couldn't load that packet: {loadError}
+                </div>
+              )}
+              {recent.length > 0 && (
+                <div className="recent">
+                  <div className="recent-head">Recent packets</div>
+                  {recent.map((r) => (
+                    <a key={r.slug} className="recent-item" href={`/p/${r.slug}`}>
+                      <span className="recent-req">{r.request || "(untitled request)"}</span>
+                      <span className="recent-meta">
+                        {new Date(r.updatedAt).toLocaleString()}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </section>
       )}
 

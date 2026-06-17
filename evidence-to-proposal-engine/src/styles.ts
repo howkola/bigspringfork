@@ -101,8 +101,16 @@ button{font-family:var(--sans);cursor:pointer}
 .raw summary{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer}
 .raw pre{background:var(--cream);border:1px solid var(--rule);padding:12px;white-space:pre-wrap;max-height:280px;overflow:auto;font-family:var(--mono);font-size:11px;line-height:1.5}
 
+.save-status{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);align-self:center}
+
 .empty{max-width:680px;margin:60px auto;text-align:center;color:var(--ink-soft);font-size:15px;line-height:1.7}
 .empty-num{font-family:var(--disp);font-size:64px;color:var(--rule);line-height:1;margin-bottom:12px}
+.recent{margin-top:28px;text-align:left;border-top:1px solid var(--rule)}
+.recent-head{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--garnet);padding:14px 0 8px}
+.recent-item{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink)}
+.recent-item:hover{color:var(--garnet)}
+.recent-req{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-meta{font-family:var(--mono);font-size:11px;color:var(--ink-soft);white-space:nowrap}
 
 .foot{max-width:1100px;margin:40px auto 0;border-top:1px solid var(--rule);padding-top:14px;font-size:11.5px;color:var(--ink-soft);font-family:var(--mono);letter-spacing:.02em}
 
