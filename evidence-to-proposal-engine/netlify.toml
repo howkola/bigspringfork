@@ -1,0 +1,31 @@
+# Netlify configuration — Evidence-to-Proposal Engine (Phase 1)
+#
+# The frontend is a static Vite build (publish = dist). All Anthropic + Consensus
+# calls go through serverless functions so the API key never reaches the browser.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # Functions import shared TS modules from shared/ — esbuild bundles them.
+  included_files = ["shared/**"]
+
+# Clean API surface: /api/consensus -> functions/consensus, /api/section -> functions/section
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
