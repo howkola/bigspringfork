@@ -55,8 +55,12 @@ work.
 
 ## Deploy (Netlify)
 
+See **[DEPLOY.md](./DEPLOY.md)** for the full step-by-step walkthrough (Git-connected
+and CLI paths, env vars, verification checklist). In short:
+
 - Build command: `npm run build` · Publish dir: `dist` · Functions dir: `netlify/functions`
-- Set `ANTHROPIC_API_KEY` in the Netlify site environment variables.
+- Set the base directory to `evidence-to-proposal-engine` (the app is in a subfolder).
+- Set `ANTHROPIC_API_KEY` (and the Supabase vars for save/revisit) in the Netlify site environment.
 - `netlify.toml` wires the `/api/*` redirect and the SPA fallback.
 
 ## Configuration
