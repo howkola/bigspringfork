@@ -1,0 +1,105 @@
+{
+  "domain": "Trafficking & Online Exploitation",
+  "slice": "MATYS (Missing & Trafficked Youth Services)",
+  "instrumentl_project": "MATYS (proj_018b242b6c347c7bbe84f4e5c14cb1a9)",
+  "loaded_from": "Project_Harmony_Citation_Ready_Data_Corpus.md (compiled 2026-06-12)",
+  "note": "Statuses below are the corpus author's original codes at load time (Phase 0). The verify loop (Phase 1) revalidates them and stamps last_verified / source_url.",
+  "claims": [
+    {
+      "id": "T-01",
+      "claim": "Approximately 900 individuals are advertised for commercial sex online in Nebraska each month; roughly 15% show high-risk trafficking indicators, and 75% of those trafficked in Nebraska are Nebraskans.",
+      "geo": "Nebraska",
+      "programs": ["Anti-Trafficking", "Missing Youth"],
+      "lenses": ["Federal", "Foundation"],
+      "source": "Creighton University Human Trafficking Initiative / HTI Labs, Nebraska's Commercial Sex Market (funded by Women's Fund of Omaha / Sherwood Foundation)",
+      "source_url": null,
+      "data_year": 2017,
+      "status": "VERIFY",
+      "last_verified": null,
+      "expiry": "Vintage-limited: figures rest on 2017-era Backpage data. Backpage was seized in 2018, so the underlying market has shifted.",
+      "red_team_flags": [
+        "Vintage: original analysis is 2017-era Backpage data. Check HTI Labs for post-Backpage updates before using in federal proposals, or frame explicitly as 'landmark prevalence research.'"
+      ],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "T-02",
+      "claim": "NCMEC's CyberTipline received more than 546,000 reports of online enticement in 2024 — a 192% increase over 2023 and a twelve-fold increase since 2021.",
+      "geo": "National",
+      "programs": ["Anti-Trafficking", "Missing Youth", "Training"],
+      "lenses": ["Federal", "Foundation"],
+      "source": "NCMEC CyberTipline 2024 Data Report",
+      "source_url": null,
+      "data_year": 2024,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "NCMEC releases annual CyberTipline data each spring; refresh with the 2025 full-year report (~spring 2026).",
+      "red_team_flags": [],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "T-03",
+      "claim": "In 2024 NCMEC received nearly 100 reports of financial sextortion per day; since 2021 at least 36 teenage boys have died by suicide after being victimized.",
+      "geo": "National",
+      "programs": ["Anti-Trafficking", "Training", "Connections"],
+      "lenses": ["Federal", "Foundation"],
+      "source": "NCMEC, 2024 in Numbers (May 2025)",
+      "source_url": null,
+      "data_year": 2024,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "Refresh with NCMEC 2025 in Numbers (~May 2026).",
+      "red_team_flags": [],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "T-04",
+      "claim": "In the first half of 2025, online enticement reports rose another 77% (to 518,720), and child sex trafficking reports surged to 62,891 following the REPORT Act's expanded mandatory reporting.",
+      "geo": "National",
+      "programs": ["Anti-Trafficking"],
+      "lenses": ["Federal"],
+      "source": "NCMEC mid-year 2025 CyberTipline data release",
+      "source_url": null,
+      "data_year": 2025,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "Mid-year figure; supersede with NCMEC full-year 2025 report.",
+      "red_team_flags": [
+        "Attribution: the trafficking-report surge is partly a reporting-mandate artifact (REPORT Act), not solely a prevalence increase. State this when using the figure."
+      ],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "T-05",
+      "claim": "Generative-AI-related exploitation reports to NCMEC increased 1,325% in 2024 — an emerging threat category for prevention education.",
+      "geo": "National",
+      "programs": ["Training", "Anti-Trafficking"],
+      "lenses": ["Federal", "Corporate/Tech"],
+      "source": "NCMEC, 2024 in Numbers",
+      "source_url": null,
+      "data_year": 2024,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "Fast-moving category; refresh with NCMEC 2025 in Numbers.",
+      "red_team_flags": [],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "T-06",
+      "claim": "Nebraska and Iowa National Human Trafficking Hotline counts and state AG task-force statistics.",
+      "geo": "Bi-state",
+      "programs": ["Anti-Trafficking", "Missing Youth"],
+      "lenses": ["Federal", "State"],
+      "source": "National Human Trafficking Hotline state reports (NE, IA); Nebraska AG NHTTF updates",
+      "source_url": null,
+      "data_year": null,
+      "status": "PULL",
+      "last_verified": null,
+      "expiry": null,
+      "red_team_flags": [
+        "Hotline counts measure reporting/contact volume, not prevalence; frame accordingly."
+      ],
+      "efficacy_evidence": []
+    }
+  ]
+}

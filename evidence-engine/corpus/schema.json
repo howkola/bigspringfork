@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Harmony Cited Claim",
+  "description": "One atomic, citation-ready claim in the Project Harmony evidence corpus. Follows the Cited Need Statement Builder conventions and adds machine fields so the live engine can verify, revalidate, and enrich each claim.",
+  "type": "object",
+  "required": ["id", "claim", "geo", "programs", "lenses", "source", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable claim id, e.g. 'T-02'. Domain prefix + number."
+    },
+    "claim": {
+      "type": "string",
+      "description": "Drop-in-ready citation sentence exactly as it should read in a proposal."
+    },
+    "geo": {
+      "type": "string",
+      "enum": ["National", "Nebraska", "Iowa", "Bi-state", "Metro", "County"],
+      "description": "Geography axis."
+    },
+    "programs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Program tags (e.g. Anti-Trafficking, Missing Youth, MDT, MH, Connections, Training, CFS, Medical, Triage, Advocacy, Prevention)."
+    },
+    "lenses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Funder-lens tags (e.g. Federal, Foundation, State, United Way, Healthcare, Corporate/Tech). Bind these to Instrumentl projects at match time."
+    },
+    "source": {
+      "type": "string",
+      "description": "Full human-readable citation."
+    },
+    "source_url": {
+      "type": ["string", "null"],
+      "description": "Canonical primary-source URL. Populated by the verify loop (Exa)."
+    },
+    "data_year": {
+      "type": ["integer", "null"],
+      "description": "The year the underlying figure describes (vintage discipline)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["VERIFIED-WEB", "VERIFY", "PULL", "INTERNAL"],
+      "description": "VERIFIED-WEB = figure confirmed against source this cycle. VERIFY = stated in a secondary source or uncertain vintage; confirm before export. PULL = source identified, figure must be extracted directly. INTERNAL = relies on non-public PH data."
+    },
+    "last_verified": {
+      "type": ["string", "null"],
+      "description": "ISO date the verify loop last confirmed this claim."
+    },
+    "expiry": {
+      "type": ["string", "null"],
+      "description": "When this figure is expected to go stale / when the next edition releases. Drives revalidation."
+    },
+    "red_team_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Framing/vintage/comparability risks a knowledgeable reviewer could challenge, with the fix noted inline."
+    },
+    "efficacy_evidence": {
+      "type": "array",
+      "description": "Peer-reviewed backing attached from Consensus that this program model works. Turns a need claim into a need+efficacy pairing.",
+      "items": {
+        "type": "object",
+        "required": ["title", "url"],
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "cite": { "type": "string" },
+          "finding": { "type": "string" }
+        }
+      }
+    }
+  }
+}
