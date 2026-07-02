@@ -3,86 +3,117 @@
   "slice": "MATYS (Missing & Trafficked Youth Services)",
   "instrumentl_project": "MATYS (proj_018b242b6c347c7bbe84f4e5c14cb1a9)",
   "loaded_from": "Project_Harmony_Citation_Ready_Data_Corpus.md (compiled 2026-06-12)",
-  "note": "Statuses below are the corpus author's original codes at load time (Phase 0). The verify loop (Phase 1) revalidates them and stamps last_verified / source_url.",
+  "last_verify_run": "2026-07-02",
+  "verify_method": "Phase 1 live pass via Exa against primary sources; Phase 2 efficacy enrichment via Consensus. Statuses reflect what THIS pass could confirm — honest by design.",
   "claims": [
     {
       "id": "T-01",
-      "claim": "Approximately 900 individuals are advertised for commercial sex online in Nebraska each month; roughly 15% show high-risk trafficking indicators, and 75% of those trafficked in Nebraska are Nebraskans.",
+      "claim": "Landmark prevalence research on Nebraska's commercial sex market found roughly 800 individuals advertised for sex online in the state each month, with about 15% showing multiple high-risk trafficking indicators and 7 in 10 showing at least one indicator of being trafficked.",
       "geo": "Nebraska",
       "programs": ["Anti-Trafficking", "Missing Youth"],
       "lenses": ["Federal", "Foundation"],
-      "source": "Creighton University Human Trafficking Initiative / HTI Labs, Nebraska's Commercial Sex Market (funded by Women's Fund of Omaha / Sherwood Foundation)",
-      "source_url": null,
+      "source": "Creighton University Human Trafficking Initiative / HTI Labs (Price & Clark), Nebraska's Commercial Sex Market (funded by Women's Fund of Omaha); reported by Nebraska Public Media, 'Sold for Sex.'",
+      "source_url": "https://nebraskapublicmedia.org/en/news/news-articles/new-research-provides-important-information-on-nebraskas-commercial-sex-industry-and-trafficking/",
       "data_year": 2017,
       "status": "VERIFY",
-      "last_verified": null,
-      "expiry": "Vintage-limited: figures rest on 2017-era Backpage data. Backpage was seized in 2018, so the underlying market has shifted.",
+      "last_verified": "2026-07-02",
+      "expiry": "Vintage-limited: rests on 2017-era Backpage data; Backpage was seized in 2018. No post-Backpage update from HTI Labs (htilabs.org) surfaced this pass.",
       "red_team_flags": [
-        "Vintage: original analysis is 2017-era Backpage data. Check HTI Labs for post-Backpage updates before using in federal proposals, or frame explicitly as 'landmark prevalence research.'"
+        "Figure varies by source: the primary Creighton/HTI reporting says ~800/month (~130/day); some secondary sources (e.g. Kulig & Butler 2019) cite ~900/month. Claim rewritten to ~800 to match the primary source.",
+        "The original '75% of those trafficked are Nebraskans' sub-claim was NOT confirmed this pass — pull it from the primary HTI report before use, or drop it.",
+        "Vintage: 2017-era Backpage data. Frame explicitly as 'landmark prevalence research,' or replace with a post-Backpage HTI Labs update before federal submission."
       ],
       "efficacy_evidence": []
     },
     {
       "id": "T-02",
-      "claim": "NCMEC's CyberTipline received more than 546,000 reports of online enticement in 2024 — a 192% increase over 2023 and a twelve-fold increase since 2021.",
+      "claim": "NCMEC's CyberTipline received more than 546,000 reports of online enticement in 2024 — roughly a 192% increase over 2023 and a twelve-fold increase since 2021.",
       "geo": "National",
       "programs": ["Anti-Trafficking", "Missing Youth", "Training"],
       "lenses": ["Federal", "Foundation"],
-      "source": "NCMEC CyberTipline 2024 Data Report",
-      "source_url": null,
+      "source": "NCMEC CyberTipline 2024 Data Report; corroborated in U.S. Senate Judiciary Committee testimony (2025).",
+      "source_url": "https://www.missingkids.org/cybertiplinedata",
       "data_year": 2024,
       "status": "VERIFIED-WEB",
-      "last_verified": null,
-      "expiry": "NCMEC releases annual CyberTipline data each spring; refresh with the 2025 full-year report (~spring 2026).",
-      "red_team_flags": [],
-      "efficacy_evidence": []
+      "last_verified": "2026-07-02",
+      "expiry": "NCMEC releases annual CyberTipline data each spring; refresh with the full-year 2025 report.",
+      "red_team_flags": [
+        "Cross-source variance: NCMEC testimony variously cites a 192% and a 194% increase over 2023 (~186,000 reports). 'Roughly 192%' is safe.",
+        "This is reporting volume (driven partly by REPORT Act mandates), not a direct prevalence measure — say so."
+      ],
+      "efficacy_evidence": [
+        {
+          "title": "Building the Evidence on Preventing Youth Commercial Sexual Exploitation: Evaluation of the Not a Number Trafficking Prevention Program",
+          "url": "https://consensus.app/papers/details/d309d7938d365eef8f754532eb92a0e9/?utm_source=claude_desktop",
+          "cite": "Jones et al., 2025, Journal of Interpersonal Violence",
+          "finding": "Quasi-experimental evaluation found a youth trafficking-prevention education program increased CSE awareness and help-seeking self-efficacy."
+        }
+      ]
     },
     {
       "id": "T-03",
-      "claim": "In 2024 NCMEC received nearly 100 reports of financial sextortion per day; since 2021 at least 36 teenage boys have died by suicide after being victimized.",
+      "claim": "In 2024 NCMEC received nearly 100 reports of financial sextortion per day; teenage boys are the predominant victims.",
       "geo": "National",
       "programs": ["Anti-Trafficking", "Training", "Connections"],
       "lenses": ["Federal", "Foundation"],
-      "source": "NCMEC, 2024 in Numbers (May 2025)",
-      "source_url": null,
+      "source": "NCMEC, 2024 in Numbers (May 2025); Thorn, Trends in Financial Sextortion (2024).",
+      "source_url": "https://www.missingkids.org/blog/2025/ncmec-releases-new-data-2024-in-numbers",
       "data_year": 2024,
-      "status": "VERIFIED-WEB",
-      "last_verified": null,
+      "status": "VERIFY",
+      "last_verified": "2026-07-02",
       "expiry": "Refresh with NCMEC 2025 in Numbers (~May 2026).",
-      "red_team_flags": [],
+      "red_team_flags": [
+        "The per-day rate and the male-teen skew are well corroborated (Thorn: 90% of victims with age+gender were males 14–17). However, the original 'at least 36 teenage boys have died by suicide since 2021' sub-claim was NOT confirmed this pass — pull the exact figure from the NCMEC/FBI primary before restoring it. Sub-claim removed from the sentence pending confirmation."
+      ],
       "efficacy_evidence": []
     },
     {
       "id": "T-04",
-      "claim": "In the first half of 2025, online enticement reports rose another 77% (to 518,720), and child sex trafficking reports surged to 62,891 following the REPORT Act's expanded mandatory reporting.",
+      "claim": "In the first half of 2025, online enticement and child sex trafficking reports to NCMEC continued to surge following the REPORT Act's expanded mandatory reporting.",
       "geo": "National",
       "programs": ["Anti-Trafficking"],
       "lenses": ["Federal"],
       "source": "NCMEC mid-year 2025 CyberTipline data release",
       "source_url": null,
       "data_year": 2025,
-      "status": "VERIFIED-WEB",
-      "last_verified": null,
+      "status": "VERIFY",
+      "last_verified": "2026-07-02",
       "expiry": "Mid-year figure; supersede with NCMEC full-year 2025 report.",
       "red_team_flags": [
-        "Attribution: the trafficking-report surge is partly a reporting-mandate artifact (REPORT Act), not solely a prevalence increase. State this when using the figure."
+        "The specific mid-2025 figures (enticement +77% to 518,720; trafficking 62,891) were NOT confirmed this pass — pull directly from the NCMEC mid-year 2025 release before use. Sentence generalized until then.",
+        "Attribution: any surge is partly a reporting-mandate artifact (REPORT Act), not solely rising prevalence — state this."
       ],
       "efficacy_evidence": []
     },
     {
       "id": "T-05",
-      "claim": "Generative-AI-related exploitation reports to NCMEC increased 1,325% in 2024 — an emerging threat category for prevention education.",
+      "claim": "Generative-AI-related child exploitation reports to NCMEC increased 1,325% in 2024 (to more than 67,000), and escalated further to 440,419 in the first half of 2025 — a fast-emerging threat category for prevention education.",
       "geo": "National",
       "programs": ["Training", "Anti-Trafficking"],
       "lenses": ["Federal", "Corporate/Tech"],
-      "source": "NCMEC, 2024 in Numbers",
-      "source_url": null,
+      "source": "NCMEC, 2024 in Numbers; U.S. Senate Judiciary Committee testimony of L. Coffren, NCMEC (Dec 9, 2025).",
+      "source_url": "https://www.judiciary.senate.gov/imo/media/doc/57fece5a-a8d8-35e9-aac0-294cf4561020/2025-12-09_Testimony_Coffren.pdf",
       "data_year": 2024,
       "status": "VERIFIED-WEB",
-      "last_verified": null,
-      "expiry": "Fast-moving category; refresh with NCMEC 2025 in Numbers.",
-      "red_team_flags": [],
-      "efficacy_evidence": []
+      "last_verified": "2026-07-02",
+      "expiry": "Fast-moving; the H1 2025 figure (440,419) will be superseded by full-year 2025 data.",
+      "red_team_flags": [
+        "The H1 2025 spike is partly attributable to a handful of AI companies newly implementing detection/reporting — a reporting artifact as well as a real trend. Note both."
+      ],
+      "efficacy_evidence": [
+        {
+          "title": "A Systematic Review of the Education and Awareness Interventions to Prevent Online Child Sexual Abuse",
+          "url": "https://consensus.app/papers/details/633885da84b5568db89301a8cbbd9446/?utm_source=claude_desktop",
+          "cite": "Patterson et al., 2022, Journal of Child & Adolescent Trauma",
+          "finding": "Education/awareness interventions improved online-safety knowledge, though effects on risky online behavior were limited — supports prevention education while flagging its known limits."
+        },
+        {
+          "title": "Building the Evidence on Preventing Youth Commercial Sexual Exploitation: Not a Number Program Evaluation",
+          "url": "https://consensus.app/papers/details/d309d7938d365eef8f754532eb92a0e9/?utm_source=claude_desktop",
+          "cite": "Jones et al., 2025, Journal of Interpersonal Violence",
+          "finding": "Youth trafficking-prevention education increased CSE awareness and help-seeking self-efficacy in a quasi-experimental high-school trial."
+        }
+      ]
     },
     {
       "id": "T-06",
