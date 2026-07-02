@@ -1,0 +1,18 @@
+# Netlify config for the Evidence-to-Proposal Engine web app.
+# Deploy this as its OWN Netlify site (separate from the Baker Writing marketing
+# site). In the Netlify UI set the site's "Base directory" to `evidence-engine/web`
+# so this file governs the build.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback so react-router client routes resolve on refresh / deep links.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Set in the Netlify UI (Site settings → Environment variables), not here:
+#   VITE_SUPABASE_URL
+#   VITE_SUPABASE_ANON_KEY
