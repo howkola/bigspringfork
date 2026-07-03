@@ -3,8 +3,8 @@
   "slice": "Connections / Mental Health",
   "instrumentl_project": "Connections (proj_0188bfa3dd337c969bebfcb4b76aa250); Mental Health (proj_018cdaeef5d27ee8ac2f1ff90463e320)",
   "loaded_from": "Project_Harmony_Citation_Ready_Data_Corpus.md, Domain 5 (compiled 2026-06-12)",
-  "last_verify_run": null,
-  "verify_method": "Ported to schema (Phase 0). Statuses below are the corpus author's original codes at load time; Phase 1 verify pass to follow.",
+  "last_verify_run": "2026-07-03",
+  "verify_method": "Ported (Phase 0) then verified live via Exa + enriched via Consensus (2026-07-03). MH-01/02/03 confirmed against primary sources; MH-05 refreshed from stale 2013 stat to current NSCH figure. MH-04 and MH-06 remain PULL (not attempted this pass).",
   "claims": [
     {
       "id": "MH-01",
@@ -12,29 +12,29 @@
       "geo": "Nebraska",
       "programs": ["MH", "Connections"],
       "lenses": ["Federal", "State", "Foundation", "Healthcare"],
-      "source": "BHECN (Behavioral Health Education Center of Nebraska), UNMC — Licensed Behavioral Health Workforce Report 2025 / 2026 Behavioral Health Workforce Capacity Report.",
-      "source_url": null,
+      "source": "BHECN (Behavioral Health Education Center of Nebraska), UNMC — 2026 Behavioral Health Workforce Capacity Report; UNMC Newsroom (Nov 7, 2025).",
+      "source_url": "https://www.unmc.edu/newsroom/2025/11/07/bhecn-report-gives-view-into-behavioral-health-workforce/",
       "data_year": 2025,
       "status": "VERIFIED-WEB",
-      "last_verified": null,
+      "last_verified": "2026-07-03",
       "expiry": "BHECN publishes annually; refresh from unmc.edu/bhecn.",
       "red_team_flags": [],
       "efficacy_evidence": []
     },
     {
       "id": "MH-02",
-      "claim": "Nebraska's licensed behavioral health workforce grew 49% from 2010 to 2024 — yet demand continues to outpace supply, and Nebraska remains the only state longitudinally tracking this workforce.",
+      "claim": "Nebraska's licensed behavioral health workforce grew 49% from 2010 to 2024 (2,279 to 3,397 providers), including a 24% increase in rural counties — yet demand continues to outpace supply, and Nebraska remains the only state that tracks its behavioral health workforce longitudinally.",
       "geo": "Nebraska",
       "programs": ["MH", "Connections"],
       "lenses": ["Federal", "Foundation"],
-      "source": "BHECN, 2026 Behavioral Health Workforce Capacity Report (released May 2026); unmc.edu/bhecn.",
-      "source_url": null,
+      "source": "BHECN, The Licensed Behavioral Health Workforce in Nebraska: 2010 to 2024; 2026 Behavioral Health Workforce Capacity Report (released May 2026).",
+      "source_url": "https://www.unmc.edu/bhecn/research-data-policy/2010_2024_overall_snapshot.html",
       "data_year": 2024,
       "status": "VERIFIED-WEB",
-      "last_verified": null,
+      "last_verified": "2026-07-03",
       "expiry": "Refresh with the next annual BHECN capacity report.",
       "red_team_flags": [
-        "Workforce growth (49%) and persistent shortage are not contradictory — pair them so a reviewer reads 'growing but still insufficient,' not a self-cancelling stat."
+        "Workforce growth (49%) and persistent shortage are not contradictory — pair them so a reviewer reads 'growing but still insufficient,' not a self-cancelling stat. Several Nebraska regions still require a 1+ hour drive to in-person behavioral health care."
       ],
       "efficacy_evidence": []
     },
@@ -45,12 +45,14 @@
       "programs": ["MH", "Connections"],
       "lenses": ["Federal", "Healthcare", "Foundation"],
       "source": "CDC, Youth Risk Behavior Survey, United States, 2023 (MMWR Supplement 73(4), Oct 2024).",
-      "source_url": null,
+      "source_url": "https://www.cdc.gov/mmwr/volumes/73/su/su7304a9.htm",
       "data_year": 2023,
       "status": "VERIFIED-WEB",
-      "last_verified": null,
+      "last_verified": "2026-07-03",
       "expiry": "YRBS runs on a 2-year cycle; refresh with the 2025 YRBS (~2026 release).",
-      "red_team_flags": [],
+      "red_team_flags": [
+        "Exact figures confirmed against the CDC MMWR primary (also 28.5% reported poor mental health). Female and LGBQ+ students show markedly higher prevalence — segment if the funder's focus warrants."
+      ],
       "efficacy_evidence": []
     },
     {
@@ -72,20 +74,33 @@
     },
     {
       "id": "MH-05",
-      "claim": "Only about 20% of children with mental or behavioral disorders are identified and receive services from a specialized provider.",
+      "claim": "About half (49.4%) of the estimated 7.7 million U.S. children with a treatable mental health disorder do not receive needed treatment from a mental health professional.",
       "geo": "National",
       "programs": ["Connections"],
       "lenses": ["Federal", "Healthcare", "Foundation"],
-      "source": "CDC (2013). Refresh candidate: Whitney & Peterson (2019), JAMA Pediatrics — NSCH analysis (~half of children with a treatable MH disorder receive treatment).",
-      "source_url": null,
-      "data_year": 2013,
-      "status": "VERIFY",
-      "last_verified": null,
-      "expiry": "CDC 2013 vintage — already used in Connections materials. Refresh with the current NSCH treatment-gap figure before reusing in federal proposals.",
+      "source": "Whitney, D.G. & Peterson, M.D. (2019). US National and State-Level Prevalence of Mental Health Disorders and Disparities of Mental Health Care Use in Children. JAMA Pediatrics, 173(4), 389-391 (2016 National Survey of Children's Health).",
+      "source_url": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2724377",
+      "data_year": 2016,
+      "status": "VERIFIED-WEB",
+      "last_verified": "2026-07-03",
+      "expiry": "REFRESHED from the stale CDC 2013 '20%' stat. Watch for a newer NSCH (2020+) treatment-gap analysis and update when available.",
       "red_team_flags": [
-        "Vintage: 2013 figure. A knowledgeable federal reviewer will know the newer NSCH analyses (Whitney & Peterson 2019: roughly half of children with a treatable MH disorder receive treatment). Refresh before export."
+        "This REPLACES the corpus's original 2013 '~20% identified and receive services' figure, which a knowledgeable federal reviewer would flag as outdated. The 49.4% untreated figure is the current, correctly framed statistic. State-level range: 29.5% (DC) to 72.2% (North Carolina)."
       ],
-      "efficacy_evidence": []
+      "efficacy_evidence": [
+        {
+          "title": "A systematic review and meta-analysis of trauma-focused cognitive behavioral therapy for children and adolescents",
+          "url": "https://consensus.app/papers/details/4ac51c67413851ce8174efbb832451bd/?utm_source=claude_desktop",
+          "cite": "Thielemann et al., 2022, Child Abuse & Neglect (61 studies, 4,523 participants)",
+          "finding": "TF-CBT produced large improvements in post-traumatic stress (g=1.14) and was superior to control conditions — supporting it as a first-line treatment for traumatized children."
+        },
+        {
+          "title": "Efficacy and moderators of CBT with a trauma focus in children and adolescents: an individual participant data meta-analysis",
+          "url": "https://consensus.app/papers/details/cb308e9e355e56e29525c760f4b49b6e/?utm_source=claude_desktop",
+          "cite": "de Haan et al., 2023, The Lancet Child & Adolescent Health",
+          "finding": "IPD meta-analysis supports trauma-focused CBT as first-line treatment irrespective of age, gender, or trauma type, with the greatest benefit for the most distressed children."
+        }
+      ]
     },
     {
       "id": "MH-06",
