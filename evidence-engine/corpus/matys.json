@@ -3,25 +3,25 @@
   "slice": "MATYS (Missing & Trafficked Youth Services)",
   "instrumentl_project": "MATYS (proj_018b242b6c347c7bbe84f4e5c14cb1a9)",
   "loaded_from": "Project_Harmony_Citation_Ready_Data_Corpus.md (compiled 2026-06-12)",
-  "last_verify_run": "2026-07-02",
-  "verify_method": "Phase 1 live pass via Exa against primary sources; Phase 2 efficacy enrichment via Consensus. Statuses reflect what THIS pass could confirm — honest by design.",
+  "last_verify_run": "2026-07-03",
+  "verify_method": "Phase 1 live pass via Exa against primary sources; Phase 2 efficacy enrichment via Consensus. Second pass (2026-07-03) closed the VERIFY/PULL gaps on T-01, T-03, T-04, T-06. Statuses reflect what could be confirmed — honest by design.",
   "claims": [
     {
       "id": "T-01",
-      "claim": "Landmark prevalence research on Nebraska's commercial sex market found roughly 800 individuals advertised for sex online in the state each month, with about 15% showing multiple high-risk trafficking indicators and 7 in 10 showing at least one indicator of being trafficked.",
+      "claim": "Landmark prevalence research on Nebraska's commercial sex market found that roughly 900 individuals are advertised for sex online in the state each month, often multiple times; about 75% show indicators of potential trafficking and 15% are at high risk of being trafficked.",
       "geo": "Nebraska",
       "programs": ["Anti-Trafficking", "Missing Youth"],
       "lenses": ["Federal", "Foundation"],
-      "source": "Creighton University Human Trafficking Initiative / HTI Labs (Price & Clark), Nebraska's Commercial Sex Market (funded by Women's Fund of Omaha); reported by Nebraska Public Media, 'Sold for Sex.'",
-      "source_url": "https://nebraskapublicmedia.org/en/news/news-articles/new-research-provides-important-information-on-nebraskas-commercial-sex-industry-and-trafficking/",
+      "source": "Creighton University Human Trafficking Initiative (Price & Clark), Nebraska's Commercial Sex Market (2017), funded by the Women's Fund of Omaha / Sherwood Foundation.",
+      "source_url": "https://www.omahawomensfund.org/wp-content/uploads/Nebraskas-Commercial-Sex-Market-Report-FINAL.pdf",
       "data_year": 2017,
-      "status": "VERIFY",
-      "last_verified": "2026-07-02",
-      "expiry": "Vintage-limited: rests on 2017-era Backpage data; Backpage was seized in 2018. No post-Backpage update from HTI Labs (htilabs.org) surfaced this pass.",
+      "status": "VERIFIED-WEB",
+      "last_verified": "2026-07-03",
+      "expiry": "Vintage-limited: rests on 2017-era Backpage data; Backpage was seized in April 2018. No post-Backpage update from HTI Labs surfaced — treat as historical baseline.",
       "red_team_flags": [
-        "Figure varies by source: the primary Creighton/HTI reporting says ~800/month (~130/day); some secondary sources (e.g. Kulig & Butler 2019) cite ~900/month. Claim rewritten to ~800 to match the primary source.",
-        "The original '75% of those trafficked are Nebraskans' sub-claim was NOT confirmed this pass — pull it from the primary HTI report before use, or drop it.",
-        "Vintage: 2017-era Backpage data. Frame explicitly as 'landmark prevalence research,' or replace with a post-Backpage HTI Labs update before federal submission."
+        "CORRECTED: the original corpus said '75% of those trafficked are Nebraskans' — that misstated the source. The primary report's ~75% figure means ~75% show INDICATORS of potential trafficking (report states 70-75%). Claim fixed.",
+        "The ~900/month figure is from the primary 2017 report; a later Creighton interview rounded it to ~800. 900 matches the published report and the Women's Fund campaign.",
+        "Vintage: 2017-era Backpage data (pre-seizure). Frame explicitly as 'landmark prevalence research,' or pair with current NCMEC national trend data (T-02/T-04) rather than presenting as a current count."
       ],
       "efficacy_evidence": []
     },
@@ -52,36 +52,36 @@
     },
     {
       "id": "T-03",
-      "claim": "In 2024 NCMEC received nearly 100 reports of financial sextortion per day; teenage boys are the predominant victims.",
+      "claim": "NCMEC received nearly 100 reports of financial sextortion per day in 2024, rising to an average of 137 per day in 2025; the victims are predominantly teenage boys, and at least three dozen (36) teenagers in the U.S. have died by suicide since 2021 after being targeted.",
       "geo": "National",
       "programs": ["Anti-Trafficking", "Training", "Connections"],
       "lenses": ["Federal", "Foundation"],
-      "source": "NCMEC, 2024 in Numbers (May 2025); Thorn, Trends in Financial Sextortion (2024).",
-      "source_url": "https://www.missingkids.org/blog/2025/ncmec-releases-new-data-2024-in-numbers",
-      "data_year": 2024,
-      "status": "VERIFY",
-      "last_verified": "2026-07-02",
-      "expiry": "Refresh with NCMEC 2025 in Numbers (~May 2026).",
+      "source": "NCMEC, New Sextortion Data (June 25, 2026) and 2024 in Numbers; FBI/HSI sextortion advisories; corroborated by FinCEN (2025).",
+      "source_url": "https://www.missingkids.org/blog/2026/ncmec-releases-new-sextortion-data-2025",
+      "data_year": 2025,
+      "status": "VERIFIED-WEB",
+      "last_verified": "2026-07-03",
+      "expiry": "Refresh annually with NCMEC's June sextortion data release.",
       "red_team_flags": [
-        "The per-day rate and the male-teen skew are well corroborated (Thorn: 90% of victims with age+gender were males 14–17). However, the original 'at least 36 teenage boys have died by suicide since 2021' sub-claim was NOT confirmed this pass — pull the exact figure from the NCMEC/FBI primary before restoring it. Sub-claim removed from the sentence pending confirmation."
+        "The '36' figure is 'at least 36' and counts teenagers (predominantly boys), not exclusively boys — phrasing corrected. FBI counted at least 20 minor suicides Oct 2021–Mar 2023; NCMEC's cumulative 'at least three dozen since 2021' is the current figure. Both are floors, not totals.",
+        "Rate note: ~100/day is the 2024 figure (36,000+ reports); 137/day is 2025 (50,000+ reports). Cite the year you mean."
       ],
       "efficacy_evidence": []
     },
     {
       "id": "T-04",
-      "claim": "In the first half of 2025, online enticement and child sex trafficking reports to NCMEC continued to surge following the REPORT Act's expanded mandatory reporting.",
+      "claim": "In the first half of 2025, NCMEC CyberTipline reports of online enticement rose 77% year over year (from 292,951 to 518,720) and child sex trafficking reports surged from 5,976 to 62,891, following the REPORT Act's expanded mandatory reporting.",
       "geo": "National",
       "programs": ["Anti-Trafficking"],
       "lenses": ["Federal"],
-      "source": "NCMEC mid-year 2025 CyberTipline data release",
-      "source_url": null,
+      "source": "NCMEC, 'Spike in Online Crimes Against Children a Wake-Up Call' — first-ever mid-year (Jan–Jun) CyberTipline data (Sept 2025); corroborated in U.S. Senate Judiciary testimony (Dec 2025).",
+      "source_url": "https://www.missingkids.org/blog/2025/spike-in-online-crimes-against-children-a-wake-up-call",
       "data_year": 2025,
-      "status": "VERIFY",
-      "last_verified": "2026-07-02",
-      "expiry": "Mid-year figure; supersede with NCMEC full-year 2025 report.",
+      "status": "VERIFIED-WEB",
+      "last_verified": "2026-07-03",
+      "expiry": "Mid-year figure; supersede with NCMEC full-year 2025 report (the CyberTipline data page already cites full-year 2025: +158% enticement, +323% CST vs 2024).",
       "red_team_flags": [
-        "The specific mid-2025 figures (enticement +77% to 518,720; trafficking 62,891) were NOT confirmed this pass — pull directly from the NCMEC mid-year 2025 release before use. Sentence generalized until then.",
-        "Attribution: any surge is partly a reporting-mandate artifact (REPORT Act), not solely rising prevalence — state this."
+        "Attribution: the child-sex-trafficking surge is largely a reporting-mandate artifact — the REPORT Act newly required ESPs to report CST and online enticement (a ~952% H1-over-H1 jump). This exposes existing volume, not a sudden rise in offenses. State this explicitly."
       ],
       "efficacy_evidence": []
     },
@@ -117,18 +117,18 @@
     },
     {
       "id": "T-06",
-      "claim": "Nebraska and Iowa National Human Trafficking Hotline counts and state AG task-force statistics.",
+      "claim": "In 2024 the National Human Trafficking Hotline identified 71 trafficking cases in Nebraska (from 148 signals) and 88 cases in Iowa (from 166 signals); since 2007 it has identified 621 cases in Nebraska and 873 in Iowa.",
       "geo": "Bi-state",
       "programs": ["Anti-Trafficking", "Missing Youth"],
       "lenses": ["Federal", "State"],
-      "source": "National Human Trafficking Hotline state reports (NE, IA); Nebraska AG NHTTF updates",
-      "source_url": null,
-      "data_year": null,
-      "status": "PULL",
-      "last_verified": null,
-      "expiry": null,
+      "source": "National Human Trafficking Hotline, Statistics by State (2024; all-time since 2007), retrieved data current as of April 2025.",
+      "source_url": "https://humantraffickinghotline.org/en/statistics/nebraska",
+      "data_year": 2024,
+      "status": "VERIFIED-WEB",
+      "last_verified": "2026-07-03",
+      "expiry": "Hotline updates annually; the operation transitioned from Polaris to Compass Connections in late 2025 — watch for methodology changes.",
       "red_team_flags": [
-        "Hotline counts measure reporting/contact volume, not prevalence; frame accordingly."
+        "Hotline counts measure reporting/contact volume from those who chose to contact the Hotline, NOT prevalence — the Hotline itself states this. Frame as 'identified cases,' never as the true number of victims."
       ],
       "efficacy_evidence": []
     }
