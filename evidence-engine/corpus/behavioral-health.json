@@ -1,0 +1,108 @@
+{
+  "domain": "Behavioral Health Need & Workforce",
+  "slice": "Connections / Mental Health",
+  "instrumentl_project": "Connections (proj_0188bfa3dd337c969bebfcb4b76aa250); Mental Health (proj_018cdaeef5d27ee8ac2f1ff90463e320)",
+  "loaded_from": "Project_Harmony_Citation_Ready_Data_Corpus.md, Domain 5 (compiled 2026-06-12)",
+  "last_verify_run": null,
+  "verify_method": "Ported to schema (Phase 0). Statuses below are the corpus author's original codes at load time; Phase 1 verify pass to follow.",
+  "claims": [
+    {
+      "id": "MH-01",
+      "claim": "About one in four Nebraskans experiences a behavioral health issue each year, yet provider shortages and long wait times leave many unable to access care.",
+      "geo": "Nebraska",
+      "programs": ["MH", "Connections"],
+      "lenses": ["Federal", "State", "Foundation", "Healthcare"],
+      "source": "BHECN (Behavioral Health Education Center of Nebraska), UNMC — Licensed Behavioral Health Workforce Report 2025 / 2026 Behavioral Health Workforce Capacity Report.",
+      "source_url": null,
+      "data_year": 2025,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "BHECN publishes annually; refresh from unmc.edu/bhecn.",
+      "red_team_flags": [],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "MH-02",
+      "claim": "Nebraska's licensed behavioral health workforce grew 49% from 2010 to 2024 — yet demand continues to outpace supply, and Nebraska remains the only state longitudinally tracking this workforce.",
+      "geo": "Nebraska",
+      "programs": ["MH", "Connections"],
+      "lenses": ["Federal", "Foundation"],
+      "source": "BHECN, 2026 Behavioral Health Workforce Capacity Report (released May 2026); unmc.edu/bhecn.",
+      "source_url": null,
+      "data_year": 2024,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "Refresh with the next annual BHECN capacity report.",
+      "red_team_flags": [
+        "Workforce growth (49%) and persistent shortage are not contradictory — pair them so a reviewer reads 'growing but still insufficient,' not a self-cancelling stat."
+      ],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "MH-03",
+      "claim": "Nationally in 2023, 39.7% of high school students experienced persistent feelings of sadness or hopelessness, 20.4% seriously considered attempting suicide, and 9.5% attempted suicide.",
+      "geo": "National",
+      "programs": ["MH", "Connections"],
+      "lenses": ["Federal", "Healthcare", "Foundation"],
+      "source": "CDC, Youth Risk Behavior Survey, United States, 2023 (MMWR Supplement 73(4), Oct 2024).",
+      "source_url": null,
+      "data_year": 2023,
+      "status": "VERIFIED-WEB",
+      "last_verified": null,
+      "expiry": "YRBS runs on a 2-year cycle; refresh with the 2025 YRBS (~2026 release).",
+      "red_team_flags": [],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "MH-04",
+      "claim": "Nebraska-specific youth behavioral-health figures (state-weighted YRBS or NRPFSS, including Douglas/Sarpy county coverage).",
+      "geo": "Nebraska",
+      "programs": ["MH", "Connections"],
+      "lenses": ["State", "Foundation"],
+      "source": "NE DHHS YRBS results portal; fallback: Nebraska Risk and Protective Factor Student Survey (NRPFSS).",
+      "source_url": null,
+      "data_year": null,
+      "status": "PULL",
+      "last_verified": null,
+      "expiry": null,
+      "red_team_flags": [
+        "Nebraska's YRBS participation/weighting varies by cycle — confirm whether 2023 state-weighted data exist before citing. NRPFSS has stronger county-level (Douglas/Sarpy) coverage."
+      ],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "MH-05",
+      "claim": "Only about 20% of children with mental or behavioral disorders are identified and receive services from a specialized provider.",
+      "geo": "National",
+      "programs": ["Connections"],
+      "lenses": ["Federal", "Healthcare", "Foundation"],
+      "source": "CDC (2013). Refresh candidate: Whitney & Peterson (2019), JAMA Pediatrics — NSCH analysis (~half of children with a treatable MH disorder receive treatment).",
+      "source_url": null,
+      "data_year": 2013,
+      "status": "VERIFY",
+      "last_verified": null,
+      "expiry": "CDC 2013 vintage — already used in Connections materials. Refresh with the current NSCH treatment-gap figure before reusing in federal proposals.",
+      "red_team_flags": [
+        "Vintage: 2013 figure. A knowledgeable federal reviewer will know the newer NSCH analyses (Whitney & Peterson 2019: roughly half of children with a treatable MH disorder receive treatment). Refresh before export."
+      ],
+      "efficacy_evidence": []
+    },
+    {
+      "id": "MH-06",
+      "claim": "HRSA Mental Health Health Professional Shortage Area (HPSA) designations across the 16 southwest Iowa counties Project Harmony serves.",
+      "geo": "County",
+      "programs": ["MH", "Connections", "Medical"],
+      "lenses": ["Federal"],
+      "source": "HRSA data.hrsa.gov shortage-area finder.",
+      "source_url": null,
+      "data_year": null,
+      "status": "PULL",
+      "last_verified": null,
+      "expiry": null,
+      "red_team_flags": [
+        "Most SW Iowa counties carry whole-county MH HPSA designations; county-by-county designation IDs strengthen HRSA and rural proposals. Pull the current designation IDs."
+      ],
+      "efficacy_evidence": []
+    }
+  ]
+}
