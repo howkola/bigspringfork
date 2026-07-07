@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-paper text-ink;
+}
+
+/* Laid-paper texture for period content: faint horizontal chain lines. */
+.laid-paper {
+  background-color: #f6f1e7;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(42, 33, 24, 0.035) 0px,
+    rgba(42, 33, 24, 0.035) 1px,
+    transparent 1px,
+    transparent 26px
+  );
+}
+
+.letter-text {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #2a2118;
+  white-space: pre-wrap;
+}
+
+.chrome-label {
+  @apply font-mono text-xs uppercase tracking-widest text-ink-faint;
+}
+
+.pill {
+  @apply inline-block rounded-full border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide;
+}
+
+.card {
+  @apply rounded-md border border-paper-deep bg-white/50 p-4 shadow-sm;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded border border-ink-soft/40 bg-white/60 px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-ink-soft transition hover:bg-white;
+}
+
+.btn-seal {
+  @apply border-seal bg-seal text-paper hover:bg-seal-dark;
+}
+
+.input {
+  @apply w-full rounded border border-paper-deep bg-white/70 px-3 py-2 text-sm text-ink outline-none focus:border-sepia;
+}

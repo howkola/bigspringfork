@@ -1,0 +1,30 @@
+# dependencies / build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# re-include things the repo-root .gitignore (Hugo theme) blocks
+!package-lock.json
+!public/
+
+# env — secrets never committed
+.env
+.env.*
+!.env.example
+
+# ── PRIVACY GUARD ─────────────────────────────────────────────
+# This repository is currently PUBLIC. The project's canon
+# (seed-docs) and everything derived from it (seeds) contain
+# surprises for a real person and must never be pushed anywhere
+# public or indexable. Keep these local until the repo is private.
+seed-docs/*
+!seed-docs/README.md
+seeds/*
+!seeds/README.md
+!seeds/build.mjs
+# ──────────────────────────────────────────────────────────────
+
+# export scratch
+exports/
